@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import garyhsu.springboot.entity.mesdb.AdmGroupEntity;
 import garyhsu.springboot.entity.mesdb.EmsCrEqpEntity;
+import garyhsu.springboot.reposotory.mesdb.AdmGroupDao;
 import garyhsu.springboot.reposotory.mesdb.EmsCrEqpDao;
 
 @Service
@@ -19,6 +21,8 @@ import garyhsu.springboot.reposotory.mesdb.EmsCrEqpDao;
 public class TestService {
 	@Autowired
 	private EmsCrEqpDao dao;
+	@Autowired
+	private AdmGroupDao groupDao;
 	
 //	@Autowired
 //	@Qualifier("msdbTM")
@@ -54,6 +58,16 @@ public class TestService {
 	@Transactional
 	public String doTest() {
 		try {
+			AdmGroupEntity userGroup = new AdmGroupEntity();
+			userGroup.setCdate(new Date());
+			userGroup.setCuser("23014021");
+			userGroup.setGroupId("TEST_ADM");
+			userGroup.setGroupName("TEST_ADM");
+			userGroup.setSite("GMH");
+			userGroup.setWebGroup("TEST");
+			groupDao.save(userGroup);
+			groupDao.flush();
+			
 			EmsCrEqpEntity entity = new EmsCrEqpEntity();
 			entity.setApplyNo("CRH240101-06");
 			entity.setEqptId("08-01-032-00047");
@@ -67,7 +81,7 @@ public class TestService {
 			
 			
 			if(entity.getTransUser().equals("23014021")) {
-				throw new RuntimeException("test roll back");
+				throw new Exception("test roll back");
 			}
 			
 		}catch(Exception e) {
