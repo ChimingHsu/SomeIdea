@@ -1,4 +1,4 @@
-package garyhsu.springboot.entity.mesdb;
+package someidea.db.mes.entity;
 
 import java.util.Date;
 

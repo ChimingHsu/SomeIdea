@@ -1,10 +1,10 @@
-package garyhsu.springboot.controller;
+package someidea.test.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import garyhsu.springboot.service.TestService;
+import someidea.test.service.TestService;
 
 @RestController
 public class TestContorller {

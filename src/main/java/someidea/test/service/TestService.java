@@ -1,4 +1,4 @@
-package garyhsu.springboot.service;
+package someidea.test.service;
 
 import java.util.Date;
 
@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import garyhsu.springboot.entity.mesdb.AdmGroupEntity;
-import garyhsu.springboot.entity.mesdb.EmsCrEqpEntity;
-import garyhsu.springboot.reposotory.mesdb.AdmGroupDao;
-import garyhsu.springboot.reposotory.mesdb.EmsCrEqpDao;
+import someidea.db.mes.entity.AdmGroupEntity;
+import someidea.db.mes.entity.EmsCrEqpEntity;
+import someidea.db.mes.reposotory.AdmGroupDao;
+import someidea.db.mes.reposotory.EmsCrEqpDao;
 
 @Service
 

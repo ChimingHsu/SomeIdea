@@ -1,4 +1,4 @@
-package garyhsu.springboot.config;
+package someidea.db.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "msdbEM", transactionManagerRef = "msdbTM", basePackages = {
-		"garyhsu.springboot.reposotory.mesdb" })
+		"someidea.db.mes.reposotory" })
 @Configuration
 public class MesDBConfig {
 	
@@ -53,7 +53,7 @@ public class MesDBConfig {
 		 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("garyhsu.springboot.entity");
+		factory.setPackagesToScan("someidea.db.mes.entity");
 		factory.setDataSource(mesdbDataSource());
 		factory.setJpaPropertyMap(properties);
 		return factory;
