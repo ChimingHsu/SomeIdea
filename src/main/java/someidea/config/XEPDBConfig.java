@@ -1,4 +1,4 @@
-package someidea.db.config;
+package someidea.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "xepdbEM", transactionManagerRef = "xepdbTM", basePackages = {
-		"someidea.db.xep.reposotory" })
+		"someidea.xepdb.reposotory" })
 @Configuration
 public class XEPDBConfig {
 	
@@ -38,7 +38,7 @@ public class XEPDBConfig {
 		return DataSourceBuilder.create().build();
 	}
 
-	@Bean("msdbEM")
+	@Bean("xepdbEM")
 	public LocalContainerEntityManagerFactoryBean mesdb1EntityManagerFactory() {
 	    Map<String, Object> properties = new HashMap<>();
 	    properties.put("hibernate.physical_naming_strategy",
@@ -53,7 +53,7 @@ public class XEPDBConfig {
 		 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("someidea.db.xep.entity");
+		factory.setPackagesToScan("someidea.xepdb.entity");
 		factory.setDataSource(mesdbDataSource());
 		factory.setJpaPropertyMap(properties);
 		return factory;

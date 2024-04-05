@@ -1,10 +1,12 @@
-package someidea.db.xep.entity;
+package someidea.xepdb.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,12 +14,13 @@ import jakarta.persistence.Table;
 @Table(name = "AUTH_USER")
 public class AuthUserEntity {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID") private BigDecimal id;
 	@Column(name = "USER_NO") private String userNo;
 	@Column(name = "USER_NAME") private String userName;
 	@Column(name = "PASSWORD") private String password;
 	@Column(name = "EMAIL") private String email;
-	@Column(name = "STATUS") private String status;
+	@Column(name = "STATUS") private BigDecimal status;
 	@Column(name = "LAST_LOGIN_DATE") private Date lastLoginDate;
 	@Column(name = "LAST_CHG_PSW_DATE") private Date lastChgPswDate;
 	@Column(name = "PSW_EXPIRY_DAYS") private BigDecimal pswExpiryDays;
@@ -53,10 +56,10 @@ public class AuthUserEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getStatus() {
+	public BigDecimal getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(BigDecimal status) {
 		this.status = status;
 	}
 	public Date getLastLoginDate() {

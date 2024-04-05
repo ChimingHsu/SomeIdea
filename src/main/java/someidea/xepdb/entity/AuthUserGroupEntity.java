@@ -1,4 +1,4 @@
-package someidea.db.xep.entity;
+package someidea.xepdb.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -6,30 +6,33 @@ import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
+import someidea.xepdb.entity.id.AuthUserGroupId;
 
 @Entity
-@Table(name = "AUTH_GROUP")
-public class AuthGroupEntity {
+@Table(name = "AUTH_USER_GROUP")
+@IdClass(AuthUserGroupId.class)
+public class AuthUserGroupEntity {
 	@Id
-	@Column(name = "ID") private BigDecimal id;
-	@Column(name = "GROUP_NAME") private String groupName;
+	@Column(name = "USER_ID") private BigDecimal userId;
+	@Id
+	@Column(name = "GROUP_ID") private BigDecimal groupId;
 	@Column(name = "CREATE_USER") private String createUser;
 	@Column(name = "CREATE_DATE") private Date createDate;
 	@Column(name = "UPDATE_USER") private String updateUser;
 	@Column(name = "UPDATE_DATE") private Date updateDate;
-	@Column(name = "DESCRIPTION") private String description;
-	public BigDecimal getId() {
-		return id;
+	public BigDecimal getUserId() {
+		return userId;
 	}
-	public void setId(BigDecimal id) {
-		this.id = id;
+	public void setUserId(BigDecimal userId) {
+		this.userId = userId;
 	}
-	public String getGroupName() {
-		return groupName;
+	public BigDecimal getGroupId() {
+		return groupId;
 	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
+	public void setGroupId(BigDecimal groupId) {
+		this.groupId = groupId;
 	}
 	public String getCreateUser() {
 		return createUser;
@@ -55,10 +58,5 @@ public class AuthGroupEntity {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	
 }
