@@ -14,7 +14,7 @@ public class TestContorller {
 	
 	@GetMapping("/test")
 	public String testController() {
-		return service.doTest();
+		return "";
 	}
 	
 	

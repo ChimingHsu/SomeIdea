@@ -23,17 +23,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import jakarta.persistence.EntityManagerFactory;
 
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "msdbEM", transactionManagerRef = "msdbTM", basePackages = {
-		"someidea.db.mes.reposotory" })
+@EnableJpaRepositories(entityManagerFactoryRef = "xepdbEM", transactionManagerRef = "xepdbTM", basePackages = {
+		"someidea.db.xep.reposotory" })
 @Configuration
-public class MesDBConfig {
+public class XEPDBConfig {
 	
 	@Autowired
 	private Environment env;
 	
-	@Bean("mydb1DS")
+	@Bean("xepdbDS")
 	@Primary
-	@ConfigurationProperties(prefix = "spring.datasource.mesdb")
+	@ConfigurationProperties(prefix = "spring.datasource.xepdb")
 	public DataSource mesdbDataSource() {
 		return DataSourceBuilder.create().build();
 	}
@@ -53,14 +53,14 @@ public class MesDBConfig {
 		 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("someidea.db.mes.entity");
+		factory.setPackagesToScan("someidea.db.xep.entity");
 		factory.setDataSource(mesdbDataSource());
 		factory.setJpaPropertyMap(properties);
 		return factory;
 	}
 
-	@Bean("msdbTM")
-	public PlatformTransactionManager mesdbTransactionManager(@Qualifier("msdbEM") EntityManagerFactory entityManagerFactory) {
+	@Bean("xepdbTM")
+	public PlatformTransactionManager mesdbTransactionManager(@Qualifier("xepdbEM") EntityManagerFactory entityManagerFactory) {
 
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(entityManagerFactory);

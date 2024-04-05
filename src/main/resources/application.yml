@@ -10,10 +10,10 @@ spring:
         auto_quote_keyword: true
         format_sql: true
   datasource:
-    mesDB:
-      password: mes0314
+    xepdb:
       jdbc-url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-      username: mes
+      username: GARY
+      password: 1671123
       driver-class-name: oracle.jdbc.OracleDriver
     hikari:
       minimumIdle: 5

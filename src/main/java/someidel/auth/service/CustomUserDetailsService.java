@@ -1,25 +1,18 @@
 package someidel.auth.service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import someidea.db.mes.entity.AdmUserEntity;
-import someidea.db.mes.reposotory.AdmUserDao;
+import someidea.db.xep.reposotory.AuthUserRep;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-    private AdmUserDao admUserDao;
+    private AuthUserRep authUserRep;
 
 //	@Autowired
 //	private AdmG
