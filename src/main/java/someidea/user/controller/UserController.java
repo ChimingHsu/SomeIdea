@@ -13,12 +13,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/users/create")
+	@PostMapping("/user/create")
 	public String userCreate(@RequestBody String jsonString) {
 		return userService.createUser(jsonString);
 	}
 	
-	@PostMapping("/users/wellcome")
+	@PostMapping("/user/wellcome")
 	public String wellcome(@RequestBody String jsonString) {
 		return String.format("Wellcome %s");
 	}

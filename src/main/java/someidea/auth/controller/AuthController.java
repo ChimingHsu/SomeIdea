@@ -1,6 +1,7 @@
 package someidea.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,12 @@ public class AuthController {
 		String rtnStr;
 		try {
 			rtnStr = loginService.login(jsonStr);
-		}catch(Exception e) {
-			e.printStackTrace();
-			rtnStr = "login fails";
+		}catch(AuthenticationException ae) {
+			rtnStr = "login fails: " + ae.getMessage();
+		}
+		catch(Exception e) {
+//			e.printStackTrace();
+			rtnStr = "login fails: " + e.getMessage();
 		}
 		
 		return "login success: "+rtnStr;

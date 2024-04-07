@@ -61,9 +61,12 @@ public class SpringSecurityConfig {
 		.authorizeHttpRequests(
 				authorize -> authorize
 				.requestMatchers("/auth/**").permitAll()
+				.requestMatchers("/user/create/**").permitAll()
 				.requestMatchers("/swagger-ui/**").permitAll()
-				.requestMatchers("/admin/**").hasRole("ADMIN")
-				.requestMatchers("/user/**").hasRole("USER")
+//				.requestMatchers("/admin/**").hasRole("ADMIN")
+				.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+//				.requestMatchers("/user/**").hasRole("USER")
+				.requestMatchers("/user/**").hasAnyAuthority("USER")
 				.anyRequest().authenticated())
 		.formLogin(
 				form -> form
