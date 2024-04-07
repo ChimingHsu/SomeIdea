@@ -8,9 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
@@ -24,16 +29,15 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration-ms}")
     private long expirationMilliSec;
 
-    // 生成 JWT token
+    
     public String generateToken(Authentication authentication){
-        String username = authentication.getName();
-
+    	UserDetails user = (UserDetails)authentication.getPrincipal();
         Date currentDate = new Date();
 
         Date expireDate = new Date(currentDate.getTime() + expirationMilliSec);
 
         String token = Jwts.builder()
-                .setSubject(username)
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(key())
@@ -47,7 +51,7 @@ public class JwtTokenProvider {
         );
     }
     
-    public String getUsername(String token){
+    public String getUserNo(String token){
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()

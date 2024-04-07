@@ -2,6 +2,7 @@ package someidea.user.service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,15 @@ public class UserService {
 	@Autowired private AuthUserGroupRep userGroupRep;
 	@Autowired private AuthGroupRep groupRep;
 	@Autowired private PasswordEncoder passwordEncoder;
+	
+	
+	public String allUsers() throws Exception{
+		List<AuthUserEntity> userLsit = userRep.findAll();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		return objectMapper.writeValueAsString(userLsit);
+	}
+	
 	
 	@Transactional
 	public String createUser(String json) {

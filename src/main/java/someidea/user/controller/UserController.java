@@ -1,4 +1,4 @@
-package someidea.test.controller;
+package someidea.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +13,13 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("/user/create")
+	@PostMapping("/users/create")
 	public String userCreate(@RequestBody String jsonString) {
 		return userService.createUser(jsonString);
+	}
+	
+	@PostMapping("/users/wellcome")
+	public String wellcome(@RequestBody String jsonString) {
+		return String.format("Wellcome %s");
 	}
 }
