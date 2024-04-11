@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import someidea.xepdb.entity.AuthGroupEntity;
 
 public interface AuthGroupRep extends JpaRepository<AuthGroupEntity, BigDecimal> {
-	@Query(value="select * from auth_group where id in (select group_id from auth_user_group where user_id =:userId)"
+	@Query(value="select * from auth_group where group_name in (select group_name from auth_user_group where user_name =:userName)"
 			,nativeQuery = true)
-	public List<AuthGroupEntity> findAllByUserId(@Param("userId")Integer userId);
+	public List<AuthGroupEntity> findAllByUserName(@Param("userName")String userName);
 }	

@@ -1,26 +1,25 @@
 package someidea.xepdb.entity.id;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class AuthUserGroupId {
-	private BigDecimal userId;
-	private BigDecimal groupId;
-	public BigDecimal getUserId() {
-		return userId;
+	private String userName;
+	private String groupName;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUserId(BigDecimal userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public BigDecimal getGroupId() {
-		return groupId;
+	public String getGroupName() {
+		return groupName;
 	}
-	public void setGroupId(BigDecimal groupId) {
-		this.groupId = groupId;
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(groupId, userId);
+		return Objects.hash(groupName, userName);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -31,6 +30,6 @@ public class AuthUserGroupId {
 		if (getClass() != obj.getClass())
 			return false;
 		AuthUserGroupId other = (AuthUserGroupId) obj;
-		return Objects.equals(groupId, other.groupId) && Objects.equals(userId, other.userId);
+		return Objects.equals(groupName, other.groupName) && Objects.equals(userName, other.userName);
 	}
 }

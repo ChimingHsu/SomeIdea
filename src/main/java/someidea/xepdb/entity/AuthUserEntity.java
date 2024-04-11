@@ -16,14 +16,15 @@ public class AuthUserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID") private BigDecimal id;
-	@Column(name = "USER_NO") private String userNo;
 	@Column(name = "USER_NAME") private String userName;
 	@Column(name = "PASSWORD") private String password;
 	@Column(name = "EMAIL") private String email;
-	@Column(name = "STATUS") private BigDecimal status;
 	@Column(name = "LAST_LOGIN_DATE") private Date lastLoginDate;
 	@Column(name = "LAST_CHG_PSW_DATE") private Date lastChgPswDate;
 	@Column(name = "PSW_EXPIRY_DAYS") private BigDecimal pswExpiryDays;
+	@Column(name = "ACCOUNT_EXPIRY_DAYS") private BigDecimal accountExpiryDays;
+	@Column(name = "ENABLED") private String enabled;
+	@Column(name = "LOCKED") private String locked;
 	@Column(name = "CREATE_DATE") private Date createDate;
 	@Column(name = "UPDATE_DATE") private Date updateDate;
 	public BigDecimal getId() {
@@ -31,12 +32,6 @@ public class AuthUserEntity {
 	}
 	public void setId(BigDecimal id) {
 		this.id = id;
-	}
-	public String getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(String userNo) {
-		this.userNo = userNo;
 	}
 	public String getUserName() {
 		return userName;
@@ -55,12 +50,6 @@ public class AuthUserEntity {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public BigDecimal getStatus() {
-		return status;
-	}
-	public void setStatus(BigDecimal status) {
-		this.status = status;
 	}
 	public Date getLastLoginDate() {
 		return lastLoginDate;
@@ -91,5 +80,23 @@ public class AuthUserEntity {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	public String getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+	public String getLocked() {
+		return locked;
+	}
+	public void setLocked(String locked) {
+		this.locked = locked;
+	}
+	public BigDecimal getAccountExpiryDays() {
+		return accountExpiryDays;
+	}
+	public void setAccountExpiryDays(BigDecimal accountExpiryDays) {
+		this.accountExpiryDays = accountExpiryDays;
 	}
 }

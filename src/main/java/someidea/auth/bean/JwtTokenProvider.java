@@ -15,13 +15,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtTokenProvider {
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+    private  Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -46,12 +47,10 @@ public class JwtTokenProvider {
     }
 
     private Key key(){
-        return Keys.hmacShaKeyFor(
-                Decoders.BASE64.decode(jwtSecret)
-        );
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
     
-    public String getUserNo(String token){
+    public String getUserName(String token){
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key())
                 .build()

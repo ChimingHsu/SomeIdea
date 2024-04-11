@@ -41,7 +41,6 @@ public class UserService {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode jsonNode = objectMapper.readTree(json);
-			String userNo = jsonNode.get("userNo").asText();
 			String userName = jsonNode.get("userName").asText();
 			String password = jsonNode.get("password").asText();
 			String email = jsonNode.get("email").asText();
@@ -51,8 +50,6 @@ public class UserService {
 			user.setEmail(email);
 			user.setPassword(passwordEncoder.encode(password));
 			user.setUserName(userName);
-			user.setUserNo(userNo);
-			user.setStatus(new BigDecimal(1));
 			user.setPswExpiryDays(new BigDecimal(90));
 			userRep.saveAndFlush(user);
 			

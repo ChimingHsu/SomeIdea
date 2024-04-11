@@ -2,6 +2,7 @@ package someidea.auth.bean;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,8 @@ import someidea.auth.service.CustomUserDetailsService;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+	private Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+	
 	@Autowired
     private JwtTokenProvider jwtTokenProvider;
 
@@ -35,21 +38,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getTokenFromRequest(request);
         
-        LoggerFactory.getLogger(JwtAuthenticationFilter.class).info("token: "+token);
+        log.info("token: "+token);
         
         if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
 
-            String userNo = jwtTokenProvider.getUserNo(token);
-
-            LoggerFactory.getLogger(JwtAuthenticationFilter.class).info("userNo: "+userNo);
+            String userNo = jwtTokenProvider.getUserName(token);
             
             UserDetails userDetails = userDetailsService.loadUserByUsername(userNo);
 
-            LoggerFactory.getLogger(JwtAuthenticationFilter.class).info("getUsername: "+userDetails.getUsername());
-            LoggerFactory.getLogger(JwtAuthenticationFilter.class).info("getPassword: "+userDetails.getPassword());
-            LoggerFactory.getLogger(JwtAuthenticationFilter.class).info("getAuthorities: "+userDetails.getAuthorities());
-            
-            
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails.getUsername(),
                 userDetails.getPassword(),

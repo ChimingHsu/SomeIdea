@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import someidea.xepdb.entity.AuthUserEntity;
 
 public interface AuthUserRep extends JpaRepository<AuthUserEntity, BigDecimal> {
-	Optional<AuthUserEntity> findByUserNo(String userNo);
+	Optional<AuthUserEntity> findByUserName(String userName);
 }

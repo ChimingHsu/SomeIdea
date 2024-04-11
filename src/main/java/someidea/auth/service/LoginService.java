@@ -1,5 +1,7 @@
 package someidea.auth.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +16,7 @@ import someidea.auth.bean.JwtTokenProvider;
 
 @Service
 public class LoginService {
+	private  Logger logger = LoggerFactory.getLogger(LoginService.class);
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
@@ -25,12 +28,12 @@ public class LoginService {
     public String login(String jsonStr) throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode jsonNode = objectMapper.readTree(jsonStr);
-		String userNo = jsonNode.get("userNo").asText();
+		String userName = jsonNode.get("userName").asText();
 		String password = jsonNode.get("password").asText();
 
     	
         Authentication authentication = authenticationManager.authenticate(
-        		new UsernamePasswordAuthenticationToken(userNo, password));
+        		new UsernamePasswordAuthenticationToken(userName, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
