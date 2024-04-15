@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,14 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
 import someidea.xepdb.entity.AuthUserEntity;
 import someidea.xepdb.reposotory.AuthGroupRep;
 import someidea.xepdb.reposotory.AuthUserRep;
 
 @Service
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
-
-	private Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 	
 	@Autowired
     private AuthUserRep authUserRep;
@@ -37,15 +35,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     	AuthUserEntity user = authUserRep.findByUserName(userName)
     			.orElseThrow(() -> new UsernameNotFoundException("User not exists by UserNo"));
     	
-    	logger.info("user Id: "+user.getId());
+    	log.info("user Id: "+user.getId());
     	
     	Set<GrantedAuthority> authorities = groupRep.findAllByUserName(user.getUserName())
     			.stream()
     			.map((group) -> new SimpleGrantedAuthority(group.getGroupName()))
     			.collect(Collectors.toSet());
     	
-    	String auths = authorities.stream().map(g->g.getAuthority()).collect(Collectors.joining(","));
-    	logger.info("auths: "+auths);
         boolean enabled = user.getEnabled().equals("Y");
         boolean accountNonExpired = isAccountNonExpired(user);
     	boolean credentialsNonExpired = isCredentialsNonExpired(user);

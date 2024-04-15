@@ -13,6 +13,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.validation.constraints.NotEmpty;
 import someidea.xepdb.entity.AuthUserEntity;
 import someidea.xepdb.reposotory.AuthGroupRep;
 import someidea.xepdb.reposotory.AuthUserGroupRep;
@@ -41,6 +42,7 @@ public class UserService {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode jsonNode = objectMapper.readTree(json);
+			
 			String userName = jsonNode.get("userName").asText();
 			String password = jsonNode.get("password").asText();
 			String email = jsonNode.get("email").asText();
@@ -56,7 +58,7 @@ public class UserService {
 			returnString = "success";
 		}catch(Exception e) {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			e.printStackTrace();
+//			e.printStackTrace();
 			returnString = e.getMessage();
 		}
 		
