@@ -24,7 +24,22 @@ import someidea.auth.service.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
-
+	
+	private static final String[] AUTH_WHITELIST  = new String[] {
+			"/auth/**",
+			"/user/create/**",
+			"/swagger-ui.html",
+			"/swagger-ui/**",
+			"/v3/api-docs/**",
+            "v3/api-docs/**",
+            "/swagger-ui/**",
+            "swagger-ui/**",
+			"/v3/api-docs/**",
+			"/swagger-resources/**",
+			"/swagger-resources",
+			
+	};
+	
 	@Autowired
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
@@ -60,9 +75,7 @@ public class SpringSecurityConfig {
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(
 				authorize -> authorize
-				.requestMatchers("/auth/**").permitAll()
-				.requestMatchers("/user/create/**").permitAll()
-				.requestMatchers("/swagger-ui/**").permitAll()
+				.requestMatchers(AUTH_WHITELIST).permitAll()
 				.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
 				.requestMatchers("/user/**").hasAnyAuthority("USER")
 //				.requestMatchers("/admin/**").hasRole("ADMIN")

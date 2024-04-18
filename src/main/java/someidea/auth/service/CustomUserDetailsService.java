@@ -1,7 +1,8 @@
 package someidea.auth.service;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,32 +36,36 @@ public class CustomUserDetailsService implements UserDetailsService {
     	AuthUserEntity user = authUserRep.findByUserName(userName)
     			.orElseThrow(() -> new UsernameNotFoundException("User not exists by UserNo"));
     	
-    	log.info("user Id: "+user.getId());
-    	
     	Set<GrantedAuthority> authorities = groupRep.findAllByUserName(user.getUserName())
     			.stream()
     			.map((group) -> new SimpleGrantedAuthority(group.getGroupName()))
     			.collect(Collectors.toSet());
-    	
-        boolean enabled = user.getEnabled().equals("Y");
-        boolean accountNonExpired = isAccountNonExpired(user);
-    	boolean credentialsNonExpired = isCredentialsNonExpired(user);
-    	boolean accountNonLocked = user.getLocked().equals("N");
-    	return new User(
-        		user.getUserName(),
-        		user.getPassword(),
-        		enabled,
-        		accountNonExpired,
-        		credentialsNonExpired,
-        		accountNonLocked,
-                authorities
-        );
+    	try {
+            boolean enabled = user.getEnabled().equals("Y");
+            boolean accountNonExpired = isAccountNonExpired(user);
+        	boolean credentialsNonExpired = isCredentialsNonExpired(user);
+        	boolean accountNonLocked = user.getLocked().equals("N");
+        	
+        	return new User(
+            		user.getUserName(),
+            		user.getPassword(),
+            		enabled,
+            		accountNonExpired,
+            		credentialsNonExpired,
+            		accountNonLocked,
+                    authorities
+            );
+    	}catch(Exception e) {
+    		log.info(e.getMessage(),e);
+    		throw new UsernameNotFoundException(e.getMessage());
+    	}
     }
     
     private boolean isCredentialsNonExpired(AuthUserEntity user) {
     	Date lastChangePswDate = user.getLastLoginDate() == null ? user.getCreateDate() : user.getLastChgPswDate();
     	LocalDateTime now = LocalDateTime.now();
-    	long diffDays = Duration.between(lastChangePswDate.toInstant(), now).toDays();
+    	long diffDays = Period.between(lastChangePswDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 
+    			now.toLocalDate()).getDays();
     	
     	return user.getPswExpiryDays().longValue() > diffDays;
 	}
@@ -68,7 +73,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private boolean isAccountNonExpired(AuthUserEntity user) {
     	Date lastLoginDate = user.getLastLoginDate() == null ? user.getCreateDate() : user.getLastLoginDate();
     	LocalDateTime now = LocalDateTime.now();
-    	long diffDays = Duration.between(lastLoginDate.toInstant(), now).toDays();
+    	long diffDays = Period.between(lastLoginDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), 
+    			now.toLocalDate()).getDays();
     	
     	return user.getAccountExpiryDays().longValue() > diffDays;
     	

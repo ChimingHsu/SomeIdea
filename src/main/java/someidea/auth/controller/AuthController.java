@@ -20,12 +20,11 @@ public class AuthController {
 		String rtnStr;
 		try {
 			rtnStr = loginService.login(jsonStr);
-			rtnStr = "login success ";
+			return "login success:" + rtnStr;
 		}catch(AuthenticationException ae) {
 			rtnStr = "login fails: " + ae.getMessage();
 		}
 		catch(Exception e) {
-//			e.printStackTrace();
 			rtnStr = "login fails: " + e.getMessage();
 		}
 		
