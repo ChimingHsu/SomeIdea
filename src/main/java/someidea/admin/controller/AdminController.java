@@ -2,6 +2,8 @@ package someidea.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import someidea.user.service.UserService;
 
 
-@Tag(name = "管理者權專用", description = "使用者權限相關API")
+@Tag(name = "管理者專用", description = "使用者相關API")
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -25,7 +27,7 @@ public class AdminController {
     @ApiResponses(value = {
             @ApiResponse(responseCode="401",description="沒有權限"),
             @ApiResponse(responseCode="404",description="找不到路徑")})
-	@GetMapping("/allUsers")
+	@GetMapping("/users")
 	public String allUsers() {
 		try {
 			return userService.allUsers();
@@ -34,5 +36,26 @@ public class AdminController {
 		}
 		return "Query users fails";
 	}
+    
+	@PostMapping("/user")
+	public String userCreate(@RequestBody String jsonString) {
+		return userService.createUser(jsonString);
+	}
+	
+	@PostMapping("/user-group")
+	public String setUserGroup(@RequestBody String jsonString) {
+		return userService.setUserGroup(jsonString);
+	}
+    
+	@PostMapping("/group")
+    public String createUserGroup(@RequestBody String jsonString) {
+		try {
+			return userService.createUserGroup(jsonString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return "Query users fails";
+    	
+    }
 	
 }

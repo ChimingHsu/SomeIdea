@@ -1,7 +1,6 @@
 package someidea.auth.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,11 +11,12 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
 import someidea.auth.bean.JwtTokenProvider;
 
 @Service
+@Slf4j
 public class LoginService {
-	private  Logger logger = LoggerFactory.getLogger(LoginService.class);
 	
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
