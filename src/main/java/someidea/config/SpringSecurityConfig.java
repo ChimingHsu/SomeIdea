@@ -77,7 +77,8 @@ public class SpringSecurityConfig {
 				authorize -> authorize
 				.requestMatchers(AUTH_WHITELIST).permitAll()
 				.requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-				.requestMatchers("/user/**").hasAnyAuthority("USER")
+				.requestMatchers("/user/**").hasAnyAuthority("DEFAULT")
+				.requestMatchers("/secure/**").hasAnyAuthority("DEFAULT")
 //				.requestMatchers("/admin/**").hasRole("ADMIN")
 //				.requestMatchers("/user/**").hasRole("USER")
 				.anyRequest().authenticated())

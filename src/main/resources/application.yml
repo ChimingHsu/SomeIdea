@@ -40,3 +40,9 @@ jwt:
   
 springdoc:
   swagger-ui.path: /swagger-ui.html
+  
+zk:
+  homepage: index
+  zul-view-resolver-prefix : /zul
+  richlet-filter-mapping : /richlet/*
+  resource-uri : /zkres
