@@ -16,23 +16,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
-		<zkspringboot.version>3.2.3</zkspringboot.version>
-		<zk.version>8.5.0-Eval</zk.version>
-<!--		<zk.version>9.6.0.1-Eval</zk.version>-->
-<!--		<zk.version>10.0.0-Eval</zk.version>-->
-		
 	</properties>
-	<repositories>
-		<repository>
-			<id>ZK CE</id>
-			<name>ZK CE Repository</name>
-			<url>https://mavensync.zkoss.org/maven2</url>
-		</repository>
-		<repository>
-			<id>ZK EE Evaluation</id>
-			<url>https://mavensync.zkoss.org/zk/ee-eval</url>
-		</repository>
-	</repositories>
 	<dependencies>
 		<!-- SpringBoot -->
 		<dependency>
@@ -65,26 +49,11 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.0.2</version>
 		</dependency>
-
-		<!-- ZK -->
-<!--		<dependency>-->
-<!--			<groupId>org.zkoss.zkspringboot</groupId>-->
-<!--			<artifactId>zkspringboot-starter</artifactId>-->
-<!--			<type>pom</type>-->
-<!--			<version>${zkspringboot.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.zkoss.zk</groupId>-->
-<!--			<artifactId>zkmax</artifactId>-->
-<!--			<version>${zk.version}</version>-->
-<!--		</dependency>-->
-		
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc10</artifactId>
 			<version>19.22.0.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
@@ -106,6 +75,18 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.apache.httpcomponents.client5/httpclient5 -->
+		<dependency>
+			<groupId>org.apache.httpcomponents.client5</groupId>
+			<artifactId>httpclient5</artifactId>
+			<version>5.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20240303</version>
 		</dependency>
 	</dependencies>
 	<build>

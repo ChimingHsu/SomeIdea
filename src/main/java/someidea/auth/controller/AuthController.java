@@ -1,5 +1,6 @@
 package someidea.auth.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,10 @@ public class AuthController {
 		String rtnStr;
 		try {
 			rtnStr = loginService.login(jsonStr);
-			return "login success:" + rtnStr;
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("token", rtnStr);
+			
+			return jsonObj.toString();
 		}catch(AuthenticationException ae) {
 			rtnStr = "login fails: " + ae.getMessage();
 		}
