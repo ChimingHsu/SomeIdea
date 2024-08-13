@@ -1,6 +1,7 @@
 package someidea.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ import someidea.user.service.UserService;
 @Tag(name = "管理者專用", description = "使用者相關API")
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminController {
 	@Autowired
 	private UserService userService;

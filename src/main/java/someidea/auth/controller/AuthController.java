@@ -3,6 +3,7 @@ package someidea.auth.controller;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class AuthController {
 	private LoginService loginService;
 	
 	@PostMapping("/login")
+	@CrossOrigin
 	public String login(@RequestBody String jsonStr) {
 		String rtnStr;
 		try {
