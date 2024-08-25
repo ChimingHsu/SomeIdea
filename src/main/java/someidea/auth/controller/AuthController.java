@@ -1,6 +1,8 @@
 package someidea.auth.controller;
 
-import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import someidea.auth.service.LoginService;
 
@@ -23,10 +27,11 @@ public class AuthController {
 		String rtnStr;
 		try {
 			rtnStr = loginService.login(jsonStr);
-			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("token", rtnStr);
 			
-			return jsonObj.toString();
+			Map<String,String> payload = new HashMap<>();
+			payload.put("token",rtnStr);
+			
+			return new ObjectMapper().writeValueAsString(payload);
 		}catch(AuthenticationException ae) {
 			rtnStr = "login fails: " + ae.getMessage();
 		}

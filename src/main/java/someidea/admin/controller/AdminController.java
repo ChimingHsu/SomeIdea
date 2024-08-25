@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import someidea.admin.service.AdminService;
 import someidea.user.service.UserService;
 
 
@@ -22,6 +23,9 @@ import someidea.user.service.UserService;
 public class AdminController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AdminService adminService;
 	
     @Operation(
     		summary = "取得所有使用者",
@@ -41,23 +45,45 @@ public class AdminController {
     
 	@PostMapping("/user")
 	public String userCreate(@RequestBody String jsonString) {
-		return userService.createUser(jsonString);
+		try {
+			return userService.createUser(jsonString);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+		
 	}
 	
 	@PostMapping("/user-group")
 	public String setUserGroup(@RequestBody String jsonString) {
-		return userService.setUserGroup(jsonString);
+		try {
+			return userService.setUserGroup(jsonString);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+		
 	}
     
 	@PostMapping("/group")
     public String createUserGroup(@RequestBody String jsonString) {
 		try {
 			return userService.createUserGroup(jsonString);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+		
+    }
+	
+	@PostMapping("/page")
+	public String createPage(@RequestBody String jsonString) {
+		try {
+			return adminService.createPage(jsonString);
 		}catch(Exception e) {
 			e.printStackTrace();
+			return e.getMessage();
 		}
-		return "Query users fails";
-    	
-    }
+	}
 	
 }
